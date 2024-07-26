@@ -1,24 +1,10 @@
 import java.util.*;
 
-class Point {
-    int x, y, dist;
-    String path;
-
-    Point(int x, int y, int dist, String path) {
-        this.x = x;
-        this.y = y;
-        this.dist = dist;
-        this.path = path;
-    }
-}
 
 public class JalanTercepat {
-
-    static int[] dx = {0, 0, 1, -1};
-    static int[] dy = {1, -1, 0, 0};
-    static String[] directions = {"kanan", "kiri", "bawah", "atas"};
-
     public static void main(String[] args) {
+
+//        =====Test 1=====
         char[][] map = {
                 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'},
                 {'#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*','#'},
@@ -31,17 +17,35 @@ public class JalanTercepat {
                 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'}
         };
 
-        findShortestPath(map);
+//        =====Test 2=====
+//        char[][] map = {
+//                {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'},
+//                {'#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','*','#'},
+//                {'#','#','#','#','#','#','#','#','#','#','#','#',' ','#','#','#','#','#','#','#','#',' ','#'},
+//                {'#',' ',' ',' ',' ',' ',' ',' ','#',' ',' ',' ',' ',' ','#',' ',' ',' ',' ',' ',' ',' ','#'},
+//                {'#',' ','#','#','#','#','#','#','#',' ','#','#','#','#','#','#','#','#','#','#','#',' ','#'},
+//                {'#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#'},
+//                {'#',' ','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',' ','#'},
+//                {'#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','^',' ',' ',' ','#'},
+//                {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'}
+//        };
+
+//        =====Test 3=====
+//        char[][] map = {
+//                {'#','*','#','^','#'}
+//        };
+
+        temukanJalan(map);
     }
 
-    static void findShortestPath(char[][] map) {
-        int n = map.length;
-        int m = map[0].length;
-        boolean[][] visited = new boolean[n][m];
+    static void temukanJalan(char[][] map) {
+        int a = map.length;
+        int b = map[0].length;
+        boolean[][] visited = new boolean[a][b];
         Point start = null, end = null;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        for (int i = 0; i < a; i++) {
+            for (int j = 0; j < b; j++) {
                 if (map[i][j] == '^') {
                     start = new Point(i, j, 0, "");
                 } else if (map[i][j] == '*') {
@@ -69,12 +73,12 @@ public class JalanTercepat {
             }
 
             for (int i = 0; i < 4; i++) {
-                int nx = p.x + dx[i];
-                int ny = p.y + dy[i];
+                int nx = p.x + Movement.ax[i];
+                int ny = p.y + Movement.ay[i];
 
-                if (isValid(nx, ny, n, m, map, visited)) {
+                if (isValid(nx, ny, a, b, map, visited)) {
                     visited[nx][ny] = true;
-                    queue.add(new Point(nx, ny, p.dist + 1, p.path + (p.dist == 0 ? "" : ", ") + "1 " + directions[i]));
+                    queue.add(new Point(nx, ny, p.dist + 1, p.path + (p.dist == 0 ? "" : ", ") + "1 " + Movement.arah[i]));
                 }
             }
         }
